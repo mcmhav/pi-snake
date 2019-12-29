@@ -164,7 +164,7 @@ def main() -> None:
         game.start()
         # snake.listen_for_direction()
     finally:
-        sense.close()
+        sense.clear()
 
 
 if __name__ == '__main__':
