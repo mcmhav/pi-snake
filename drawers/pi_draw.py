@@ -1,19 +1,16 @@
-from sense_hat import SenseHat
-
 B = (0, 0, 0)
 R = (255, 0, 0)
 
 
 class Pihat():
 
-    def __init__(self):
-        self._sense = SenseHat()
+    def __init__(self, sense):
+        self._sense = sense
 
     def draw(self, board):
         pixels = []
 
         for row in board:
-            print(row)
             for cell in row:
                 if cell == 's':
                     pixels.append(R)

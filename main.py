@@ -53,7 +53,7 @@ class Sysout():
 
 class Board():
 
-    def __init__(self, size=5, drawer=Sysout):
+    def __init__(self, size=5, drawer=Sysout()):
         self._size = size
         self._board = self._init_board()
         self._snake_head = [
@@ -61,7 +61,7 @@ class Board():
             math.floor(self._size / 2),
         ]
         self._init_snake()
-        self._drawer = drawer()
+        self._drawer = drawer
 
     def _init_board(self):
         return [[''] * self._size for i in range(self._size)]
@@ -155,11 +155,16 @@ class Game():
 
 def main() -> None:
     print('Starting game')
+    from sense_hat import SenseHat
+    sense = SenseHat()
     snake = Snake()
-    board = Board(size=8, drawer=Pihat)
+    board = Board(size=8, drawer=Pihat(sense))
     game = Game(snake, board, game_speed=0.5)
-    game.start()
-    # snake.listen_for_direction()
+    try:
+        game.start()
+        # snake.listen_for_direction()
+    finally:
+        sense.close()
 
 
 if __name__ == '__main__':
