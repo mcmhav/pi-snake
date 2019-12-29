@@ -9,15 +9,17 @@ class Pihat():
     def __init__(self):
         self._sense = SenseHat()
 
-    @staticmethod
-    def draw(board):
+    def draw(self, board):
         pixels = []
 
         for row in board:
             print(row)
-            if row:
-                pixels.append(R)
-            else:
-                pixels.append(B)
+            for cell in row:
+                if cell == 's':
+                    pixels.append(R)
+                else:
+                    pixels.append(B)
+
+        print(len(pixels))
 
         self._sense.set_pixels(pixels)

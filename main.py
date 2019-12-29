@@ -1,4 +1,3 @@
-from pynput import keyboard
 import enum
 import math
 from drawers.pi_draw import Pihat
@@ -12,7 +11,6 @@ class Direction(enum.Enum):
 
 
 class Snake():
-    # ■
 
     def __init__(self):
         self._direction = Direction.right
@@ -22,6 +20,7 @@ class Snake():
 
     def listen_for_direction(self):
         print('listen_for_direction')
+        from pynput import keyboard
         with keyboard.Listener(on_press=self.on_press) as listener:
             listener.join()
 
@@ -157,10 +156,10 @@ class Game():
 def main() -> None:
     print('Starting game')
     snake = Snake()
-    board = Board(8)
+    board = Board(size=8, drawer=Pihat)
     game = Game(snake, board, game_speed=0.5)
     game.start()
-    snake.listen_for_direction()
+    # snake.listen_for_direction()
 
 
 if __name__ == '__main__':
