@@ -1,5 +1,6 @@
 B = (0, 0, 0)
 R = (255, 0, 0)
+G = (0, 255, 0)
 
 
 class Pihat():
@@ -14,9 +15,14 @@ class Pihat():
             for cell in row:
                 if cell == 's':
                     pixels.append(R)
+                elif cell == 'g':
+                    pixels.append(G)
                 else:
                     pixels.append(B)
 
         print(len(pixels))
 
         self._sense.set_pixels(pixels)
+
+    def clear(self):
+        self._sense.clear()
