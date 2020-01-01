@@ -118,6 +118,9 @@ class Board():
     def draw(self):
         self._drawer.draw(self._board)
 
+    def get_snake(self):
+        return self._snake
+
 
 class Game():
 
@@ -184,4 +187,4 @@ class Game():
             self._threading_event.clear()
 
     def get_game_summary(self):
-        return f'Game steps: {self._round_count}'
+        return f'Game steps: {self._round_count}, Snake-length: {self._board.get_snake()}'
