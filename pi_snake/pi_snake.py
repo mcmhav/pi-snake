@@ -1,13 +1,17 @@
-from .direction import Direction
-import pi_snake.directionairs as directionairs
 import enum
 import math
 import random
+import threading
+import time
+
+import pi_snake.directionairs as directionairs
+
+from .direction import Direction
 
 
 class Snake():
 
-    def __init__(self, directionier=directionairs.Keyboard()):
+    def __init__(self, directionier):
         self._directionier = directionier
 
     def get_new_direction(self):
@@ -76,10 +80,6 @@ class Board():
 
     def draw(self):
         self._drawer.draw(self._board)
-
-
-import threading
-import time
 
 
 class Game():

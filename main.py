@@ -42,7 +42,15 @@ def main() -> None:
     else:
         drawer = Sysout()
 
-    snake = Snake(directionairs.Random())
+    directionier = None
+    if args.directionier == 'keyboard':
+        from pi_snake.directionairs.keyboard import Keyboard
+        directionier = Keyboard()
+    else:
+        from pi_snake.directionairs.random import Random
+        directionier = Random()
+
+    snake = Snake(directionier)
     board = Board(drawer=drawer, size=args.size)
     game = Game(snake, board, game_speed=args.game_speed)
     try:

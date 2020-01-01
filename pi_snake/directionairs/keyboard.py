@@ -1,6 +1,8 @@
-from ..direction import Direction
-from pynput import keyboard
 import threading
+
+from pynput import keyboard
+
+from ..direction import Direction
 
 
 class Keyboard():
