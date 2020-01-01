@@ -49,15 +49,14 @@ class Board():
             math.floor(self._size / 2),
             math.floor(self._size / 2) - 2,
         ]]
-        self._place_apple()
         self._init_snake()
+        self._place_apple()
         self._drawer = drawer
 
     def _init_board(self):
         return [[''] * self._size for i in range(self._size)]
 
     def _init_snake(self):
-        print(self._board)
         self._update_snake()
 
     def _update_tile(self, tile, value):
@@ -120,11 +119,6 @@ class Board():
         self._drawer.draw(self._board)
 
 
-import sys
-import queue
-import concurrent.futures
-
-
 class Game():
 
     def __init__(self, snake, board, game_speed):
@@ -170,7 +164,6 @@ class Game():
         self._game_step()
 
         self._board.draw()
-        # self._threading_event.set()
 
     def _thread(self):
         try:

@@ -6,7 +6,8 @@ G = (0, 255, 0)
 class Pihat():
 
     def __init__(self, sense):
-        self._sense = sense
+        from sense_hat import SenseHat
+        self._sense = SenseHat()
 
     def draw(self, board):
         pixels = []

@@ -2,7 +2,6 @@ import argparse
 from pi_snake.drawers import Sysout, Pihat
 
 from pi_snake.pi_snake import Snake, Board, Game
-import pi_snake.directionairs as directionairs
 
 parser = argparse.ArgumentParser(description='pi-snake.')
 parser.add_argument(
@@ -42,9 +41,7 @@ def main() -> None:
     print(args.game_speed)
     drawer = None
     if args.drawer == 'sense_hat':
-        from sense_hat import SenseHat
-        sense = SenseHat()
-        drawer = Pihat(sense)
+        drawer = Pihat()
     else:
         drawer = Sysout()
 
