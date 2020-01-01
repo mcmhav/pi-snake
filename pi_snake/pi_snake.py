@@ -41,13 +41,13 @@ class Board():
         self._board = self._init_board()
         self._snake = [[
             math.floor(self._size / 2),
-            math.floor(self._size / 2),
+            math.floor(self._size / 2) - 2,
         ], [
             math.floor(self._size / 2),
             math.floor(self._size / 2) - 1,
         ], [
             math.floor(self._size / 2),
-            math.floor(self._size / 2) - 2,
+            math.floor(self._size / 2),
         ]]
         self._init_snake()
         self._place_apple()
