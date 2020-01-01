@@ -8,6 +8,10 @@ import pi_snake.directionairs as directionairs
 from .direction import Direction
 
 
+class GameOverException(Exception):
+    pass
+
+
 class Snake():
 
     def __init__(self, directionier):
@@ -111,7 +115,7 @@ class Board():
             self._snake.pop(0)
         elif self._board[self._snake[-1][0]][self._snake[-1][1]] == 's':
             print('game over')
-            raise Exception('game over')
+            raise GameOverException('game over')
         elif self._board[self._snake[-1][0]][self._snake[-1][1]] == 'g':
             self._place_apple()
 
@@ -119,6 +123,11 @@ class Board():
 
     def draw(self):
         self._drawer.draw(self._board)
+
+
+import sys
+import queue
+import concurrent.futures
 
 
 class Game():
@@ -129,6 +138,8 @@ class Game():
         self._threading_event = threading.Event()
         self._snake = snake
         self._board = board
+
+        self._game_over = False
 
     def game_step(self):
         self._round_count += 1
@@ -162,14 +173,22 @@ class Game():
             self._snake.set_direction(tick_start_direction)
 
         self._board.draw()
+        # self._threading_event.set()
+
+    def _thread(self):
+        try:
+            self._game_tick()
+        except GameOverException as e:
+            print('=' * 10)
+            self._game_over = True
+
         self._threading_event.set()
 
     def start(self):
-
         self._snake.start()
 
-        while True:
-            thread = threading.Thread(target=self._game_tick)
+        while not self._game_over:
+            thread = threading.Thread(target=self._thread)
             thread.start()
             self._threading_event.wait()
             self._threading_event.clear()

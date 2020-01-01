@@ -61,6 +61,9 @@ def main() -> None:
     game = Game(snake, board, game_speed=args.game_speed)
     try:
         game.start()
+    except Exception as e:
+        print('errororor')
+        print(e)
     finally:
         drawer.clear()
 
