@@ -20,8 +20,6 @@ class Pihat():
                 else:
                     pixels.append(B)
 
-        print(len(pixels))
-
         self._sense.set_pixels(pixels)
 
     def clear(self):

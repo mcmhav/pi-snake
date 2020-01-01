@@ -1,4 +1,3 @@
-import enum
 import math
 import random
 import threading
@@ -40,11 +39,17 @@ class Board():
             math.floor(self._size / 2),
             math.floor(self._size / 2),
         ]
-        self._apple = [
-            random.randint(0, size - 1),
-            random.randint(0, size - 1),
-        ]
-        self._init_apple()
+        self._snake = [[
+            math.floor(self._size / 2),
+            math.floor(self._size / 2),
+        ], [
+            math.floor(self._size / 2),
+            math.floor(self._size / 2) - 1,
+        ], [
+            math.floor(self._size / 2),
+            math.floor(self._size / 2) - 2,
+        ]]
+        self._place_apple()
         self._init_snake()
         self._drawer = drawer
 
@@ -53,30 +58,64 @@ class Board():
 
     def _init_snake(self):
         print(self._board)
-        self._update_tile(self._snake_head, 's')
-
-    def _init_apple(self):
-        self._update_tile(self._apple, 'g')
+        # self._update_tile(self._snake_head, 's')
+        self._update_snake()
 
     def _update_tile(self, tile, value):
         self._board[tile[0]][tile[1]] = value
 
-    def move_snake(self, direction):
-        self._update_tile(self._snake_head, '')
-        if direction == Direction.up:
-            self._snake_head[0] -= (1 % self._size)
-            self._snake_head[0] = (self._snake_head[0] % self._size)
-        elif direction == Direction.right:
-            self._snake_head[1] += (1 % self._size)
-            self._snake_head[1] = (self._snake_head[1] % self._size)
-        elif direction == Direction.down:
-            self._snake_head[0] += (1 % self._size)
-            self._snake_head[0] = (self._snake_head[0] % self._size)
-        elif direction == Direction.left:
-            self._snake_head[1] -= (1 % self._size)
-            self._snake_head[1] = (self._snake_head[1] % self._size)
+    def _update_snake(self):
+        for snake_block in self._snake:
+            self._update_tile(snake_block, 's')
 
-        self._update_tile(self._snake_head, 's')
+    def _can_place_apple(self, apple):
+        return self._board[apple[0]][apple[1]] == ''
+
+    def _place_apple(self):
+        apple = [
+            random.randint(0, self._size - 1),
+            random.randint(0, self._size - 1),
+        ]
+        while not self._can_place_apple(apple):
+            apple = [
+                random.randint(0, self._size - 1),
+                random.randint(0, self._size - 1),
+            ]
+
+        self._update_tile(apple, 'g')
+
+    def move_snake(self, direction):
+        if direction == Direction.up:
+            self._snake.append([
+                (self._snake[-1][0] - (1 % self._size)) % self._size,
+                self._snake[-1][1],
+            ])
+        elif direction == Direction.right:
+            self._snake.append([
+                self._snake[-1][0],
+                (self._snake[-1][1] + (1 % self._size)) % self._size,
+            ])
+        elif direction == Direction.down:
+            self._snake.append([
+                (self._snake[-1][0] + (1 % self._size)) % self._size,
+                self._snake[-1][1],
+            ])
+        elif direction == Direction.left:
+            self._snake.append([
+                self._snake[-1][0],
+                (self._snake[-1][1] - (1 % self._size)) % self._size,
+            ])
+
+        if self._board[self._snake[-1][0]][self._snake[-1][1]] == '':
+            self._update_tile(self._snake[0], '')
+            self._snake.pop(0)
+        elif self._board[self._snake[-1][0]][self._snake[-1][1]] == 's':
+            print('game over')
+            raise Exception('game over')
+        elif self._board[self._snake[-1][0]][self._snake[-1][1]] == 'g':
+            self._place_apple()
+
+        self._update_snake()
 
     def draw(self):
         self._drawer.draw(self._board)
