@@ -12,6 +12,12 @@ parser.add_argument(
     help='Drawer for the game',
 )
 parser.add_argument(
+    '--directionier',
+    dest='directionier',
+    default='sysout',
+    help='Dictionair for the game',
+)
+parser.add_argument(
     '--size',
     dest='size',
     default=8,
