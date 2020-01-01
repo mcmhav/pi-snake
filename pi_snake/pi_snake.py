@@ -187,4 +187,4 @@ class Game():
             self._threading_event.clear()
 
     def get_game_summary(self):
-        return f'Game steps: {self._round_count}, Snake-length: {self._board.get_snake()}'
+        return f'Game over. Snake-length: {self._board.get_snake()} Steps: {self._round_count}'
