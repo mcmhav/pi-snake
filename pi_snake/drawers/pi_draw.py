@@ -22,5 +22,6 @@ class Pihat():
 
         self._sense.set_pixels(pixels)
 
-    def clear(self):
+    def clear(self, game_summary):
+        self._sense.show_message(game_summary)
         self._sense.clear()

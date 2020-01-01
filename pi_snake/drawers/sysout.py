@@ -6,5 +6,5 @@ class Sysout():
             print(row)
 
     @staticmethod
-    def clear():
-        return
+    def clear(game_summary):
+        print(game_summary)

@@ -65,7 +65,7 @@ def main() -> None:
         print('errororor')
         print(e)
     finally:
-        drawer.clear()
+        drawer.clear(game.get_game_summary())
 
 
 if __name__ == '__main__':

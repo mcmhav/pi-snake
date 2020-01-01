@@ -39,10 +39,6 @@ class Board():
     ):
         self._size = size
         self._board = self._init_board()
-        self._snake_head = [
-            math.floor(self._size / 2),
-            math.floor(self._size / 2),
-        ]
         self._snake = [[
             math.floor(self._size / 2),
             math.floor(self._size / 2),
@@ -62,7 +58,6 @@ class Board():
 
     def _init_snake(self):
         print(self._board)
-        # self._update_tile(self._snake_head, 's')
         self._update_snake()
 
     def _update_tile(self, tile, value):
@@ -141,7 +136,7 @@ class Game():
 
         self._game_over = False
 
-    def game_step(self):
+    def _game_step(self):
         self._round_count += 1
 
     def _can_move_direction(self, previous_direction, next_direction):
@@ -172,6 +167,8 @@ class Game():
             self._board.move_snake(tick_start_direction)
             self._snake.set_direction(tick_start_direction)
 
+        self._game_step()
+
         self._board.draw()
         # self._threading_event.set()
 
@@ -192,3 +189,6 @@ class Game():
             thread.start()
             self._threading_event.wait()
             self._threading_event.clear()
+
+    def get_game_summary(self):
+        return f'Game steps: {self._round_count}'
