@@ -5,7 +5,7 @@ G = (0, 255, 0)
 
 class Pihat():
 
-    def __init__(self, sense):
+    def __init__(self):
         from sense_hat import SenseHat
         self._sense = SenseHat()
 
