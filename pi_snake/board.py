@@ -7,7 +7,9 @@ from .drawers.drawer import Drawer
 
 
 class GameOverException(Exception):
-    pass
+
+    def __init__(self, message):
+        self.message = message
 
 
 class Board():
@@ -66,12 +68,13 @@ class Board():
         movement = self.direction_to_movement(direction)
         self._snake.append(movement)
 
+        if (len(self._snake) + 1) == self._size * self._size:
+            raise GameOverException('Game won! :)')
         if self._board[self._snake[-1][0]][self._snake[-1][1]] == '':
             self._update_tile(self._snake[0], '')
             self._snake.pop(0)
         elif self._board[self._snake[-1][0]][self._snake[-1][1]] == 's':
-            print('game over')
-            raise GameOverException('game over')
+            raise GameOverException('game over! :(')
         elif self._board[self._snake[-1][0]][self._snake[-1][1]] == 'g':
             self._place_apple()
 

@@ -23,7 +23,7 @@ class Horizontal(Directionair):
 
     def get_new_direction(self, board: Board) -> Direction:
         new_direction = Direction.right
-        if len(board._snake) > board._size:
+        if len(board._snake) >= board._size:
             movement = board.direction_to_movement(Direction.right)
             if board._board[movement[0]][movement[1]] == 's':
                 new_direction = Direction.up

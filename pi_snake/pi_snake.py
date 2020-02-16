@@ -56,6 +56,7 @@ class Game():
         self._board = board
 
         self._game_over = False
+        self._game_over_msg = ''
 
     def _game_step(self) -> None:
         self._round_count += 1
@@ -86,6 +87,7 @@ class Game():
         except GameOverException as e:
             print('=' * 10)
             self._game_over = True
+            self._game_over_msg = e.message
 
         self._threading_event.set()
 
@@ -99,4 +101,4 @@ class Game():
             self._threading_event.clear()
 
     def get_game_summary(self) -> str:
-        return f'Game over. Snake-length: {self._board.get_snake()} Steps: {self._round_count}'
+        return f'{self._game_over_msg}. Snake-length: {self._board.get_snake()} Steps: {self._round_count}'
