@@ -12,6 +12,7 @@ class Pihat(Drawer):
     def __init__(self):
         from sense_hat import SenseHat # pylint: disable=import-error
         self._sense = SenseHat()
+        self._sense.set_rotation(180)
 
     def draw(self, board: List) -> None:
         pixels = []
