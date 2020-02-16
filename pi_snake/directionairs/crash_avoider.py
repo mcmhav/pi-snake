@@ -1,7 +1,7 @@
 from pi_snake.board import Board
 
 from ..direction import Direction
-from .random import DIRECTIONS, Random
+from .random import Random
 
 
 class CrashAvoider(Random):

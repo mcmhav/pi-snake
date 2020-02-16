@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Any
 import threading
 
 from pi_snake.board import Board
@@ -27,12 +27,12 @@ class Keyboard(Directionair):
     def set_direction(self, direction: Direction) -> None:
         self._direction = direction
 
-    def _listen_for_direction(self):
+    def _listen_for_direction(self) -> None:
         print('_listen_for_direction')
         with keyboard.Listener(on_press=self.on_press) as listener:
             listener.join()
 
-    def on_press(self, key) -> Optional[bool]:
+    def on_press(self, key: Any) -> Optional[bool]:
         try:
             if key == keyboard.Key.esc:
                 # Stop listener
