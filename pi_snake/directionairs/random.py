@@ -20,11 +20,8 @@ class Random(Directionair):
             init_direction: Direction = Direction.right,
             seed: int = 1,
     ):
+        super().__init__(init_direction)
         self._seed = seed
-        self._direction = init_direction
-
-    def set_direction(self, direction):
-        self._direction = direction
 
     def _can_move_direction(
             self,
@@ -41,9 +38,6 @@ class Random(Directionair):
                     and next_direction == Direction.right)):
             return False
         return True
-
-    def get_direction(self):
-        return self._direction
 
     def get_new_direction(self, board: Board) -> Direction:
         new_direction = DIRECTIONS[random.randint(0, 3)]

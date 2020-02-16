@@ -28,7 +28,7 @@ class Snake():
     def __init__(self, directionier: Directionair):
         self._directionier = directionier
 
-    def get_new_direction(self, board) -> Direction:
+    def get_new_direction(self, board: Board) -> Direction:
         return self._directionier.get_new_direction(board)
 
     def get_direction(self) -> Direction:

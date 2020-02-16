@@ -32,10 +32,10 @@ parser.add_argument(
     type=float,
 )
 
-args = parser.parse_args()
+ARGS = parser.parse_args()
 
 
-def main() -> None:
+def main(args) -> None:
     print('Starting game')
     print(args.drawer)
     print(args.size)
@@ -50,9 +50,12 @@ def main() -> None:
     if args.directionier == 'keyboard':
         from pi_snake.directionairs.keyboard import Keyboard
         directionier = Keyboard()
-    if args.directionier == 'crash_avoider':
+    elif args.directionier == 'crash_avoider':
         from pi_snake.directionairs.crash_avoider import CrashAvoider
         directionier = CrashAvoider()
+    elif args.directionier == 'horizontal':
+        from pi_snake.directionairs.horizontal import Horizontal
+        directionier = Horizontal()
     else:
         from pi_snake.directionairs.random import Random
         directionier = Random()
@@ -69,4 +72,4 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()
+    main(ARGS)
