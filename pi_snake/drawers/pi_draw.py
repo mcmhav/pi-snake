@@ -1,15 +1,19 @@
+from typing import List
+
+from .drawer import Drawer
+
 B = (0, 0, 0)
 R = (255, 0, 0)
 G = (0, 255, 0)
 
 
-class Pihat():
+class Pihat(Drawer):
 
     def __init__(self):
-        from sense_hat import SenseHat
+        from sense_hat import SenseHat # pylint: disable=import-error
         self._sense = SenseHat()
 
-    def draw(self, board):
+    def draw(self, board: List) -> None:
         pixels = []
 
         for row in board:
@@ -23,6 +27,6 @@ class Pihat():
 
         self._sense.set_pixels(pixels)
 
-    def clear(self, game_summary):
+    def clear(self, game_summary: str) -> None:
         self._sense.show_message(game_summary)
         self._sense.clear()

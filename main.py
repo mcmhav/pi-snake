@@ -1,7 +1,8 @@
 import argparse
-from pi_snake.drawers import Sysout, Pihat
 
-from pi_snake.pi_snake import Snake, Board, Game
+from pi_snake.directionairs.directionair import Directionair
+from pi_snake.drawers import Pihat, Sysout
+from pi_snake.pi_snake import Board, Game, Snake
 
 parser = argparse.ArgumentParser(description='pi-snake.')
 parser.add_argument(
@@ -45,10 +46,13 @@ def main() -> None:
     else:
         drawer = Sysout()
 
-    directionier = None
+    directionier: Directionair
     if args.directionier == 'keyboard':
         from pi_snake.directionairs.keyboard import Keyboard
         directionier = Keyboard()
+    if args.directionier == 'crash_avoider':
+        from pi_snake.directionairs.crash_avoider import CrashAvoider
+        directionier = CrashAvoider()
     else:
         from pi_snake.directionairs.random import Random
         directionier = Random()
@@ -59,8 +63,7 @@ def main() -> None:
     try:
         game.start()
     except Exception as e:
-        print('errororor')
-        print(e)
+        print('error', e)
     finally:
         drawer.clear(game.get_game_summary())
 

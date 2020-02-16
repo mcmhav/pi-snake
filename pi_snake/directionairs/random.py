@@ -1,5 +1,9 @@
-from ..direction import Direction
 import random
+
+from pi_snake.board import Board
+
+from ..direction import Direction
+from .directionair import Directionair
 
 DIRECTIONS = {
     0: Direction.right,
@@ -9,19 +13,24 @@ DIRECTIONS = {
 }
 
 
-class Random():
+class Random(Directionair):
 
-    def __init__(self, init_direction=Direction.right, seed=1):
+    def __init__(
+            self,
+            init_direction: Direction = Direction.right,
+            seed: int = 1,
+    ):
         self._seed = seed
         self._direction = init_direction
-
-    def start(self):
-        return
 
     def set_direction(self, direction):
         self._direction = direction
 
-    def _can_move_direction(self, previous_direction, next_direction):
+    def _can_move_direction(
+            self,
+            previous_direction: Direction,
+            next_direction: Direction,
+    ) -> bool:
         if ((previous_direction == Direction.up
              and next_direction == Direction.down)
                 or (previous_direction == Direction.down
@@ -36,7 +45,7 @@ class Random():
     def get_direction(self):
         return self._direction
 
-    def get_new_direction(self):
+    def get_new_direction(self, board: Board) -> Direction:
         new_direction = DIRECTIONS[random.randint(0, 3)]
         while not self._can_move_direction(self._direction, new_direction):
             new_direction = DIRECTIONS[random.randint(0, 3)]

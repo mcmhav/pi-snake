@@ -1,26 +1,30 @@
+from typing import Optional
 import threading
+
+from pi_snake.board import Board
 
 from pynput import keyboard
 
 from ..direction import Direction
+from .directionair import Directionair
 
 
-class Keyboard():
+class Keyboard(Directionair):
 
-    def __init__(self, init_direction=Direction.right):
+    def __init__(self, init_direction: Direction = Direction.right):
         self._direction = init_direction
 
-    def start(self):
+    def start(self) -> None:
         thread = threading.Thread(target=self._listen_for_direction)
         thread.start()
 
     def get_direction(self):
         return self._direction
 
-    def get_new_direction(self):
+    def get_new_direction(self, board: Board) -> Direction:
         return self._direction
 
-    def set_direction(self, direction: Direction):
+    def set_direction(self, direction: Direction) -> None:
         self._direction = direction
 
     def _listen_for_direction(self):
@@ -28,7 +32,7 @@ class Keyboard():
         with keyboard.Listener(on_press=self.on_press) as listener:
             listener.join()
 
-    def on_press(self, key):
+    def on_press(self, key) -> Optional[bool]:
         try:
             if key == keyboard.Key.esc:
                 # Stop listener
